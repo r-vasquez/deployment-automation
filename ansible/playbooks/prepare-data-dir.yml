@@ -39,6 +39,29 @@
         state: mounted
     when: nvme_devices_for_raid|length == 1
 
+  - name: Create a new xfs primary partition
+    community.general.parted:
+      device: /dev/sdc
+      number: 1
+      state: present
+      fs_type: xfs
+
+  - name: format partition to xfs
+    community.general.filesystem:
+      fstype: xfs
+      dev: /dev/sdc1
+      force: true
+
+  - name: mount disk to /mnt/vectorized
+    ansible.posix.mount:
+      path: /mnt/vectorized
+      src: /dev/sdc1
+      passno: 2
+      opts: defaults,nofail
+      fstype: xfs
+      state: mounted
+      boot: true
+
   - name: data path
     file:
       path: /mnt/vectorized/redpanda

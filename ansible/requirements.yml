@@ -1,4 +1,8 @@
-- src: mrlesmithjr.mdadm
-- src: cloudalchemy.prometheus
-- src: cloudalchemy.grafana
-- src: cloudalchemy.node_exporter
+collections:
+  - name: ansible.posix
+
+roles:
+  - src: mrlesmithjr.mdadm
+  - src: cloudalchemy.prometheus
+  - src: cloudalchemy.grafana
+  - src: cloudalchemy.node_exporter
